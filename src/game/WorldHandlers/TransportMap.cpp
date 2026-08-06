@@ -418,6 +418,14 @@ bool TransportMap::Add(Player* passenger)
     Position const* aboard = passenger->m_movementInfo.GetTransportPos();
     passenger->Place().MoveTo(aboard->x, aboard->y, aboard->z, aboard->o);
 
+    // The reset TeleportTo ends with, put where every door passes: walking aboard, logging in
+    // aboard and riding a seam across all arrive here, and only the teleport cleared them. A
+    // stale run flag leaves him running on the spot for anyone ashore until he moves again.
+    //
+    // NONE, not the ONTRANSPORT the older clients set: 4.3.4 signals a rider by writing the
+    // transport guid (hasTransportData), never by a movement flag -- see BuildMovementUpdate.
+    passenger->m_movementInfo.SetMovementFlags(MOVEFLAG_NONE);
+
     passenger->GetMapRef().link(this, passenger);
     passenger->SetMap(this);
 
