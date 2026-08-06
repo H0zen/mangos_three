@@ -781,7 +781,8 @@ void WorldSession::HandleInitiateTradeOpcode(WorldPacket& recvPacket)
         return;
     }
 
-    if (pOther->GetTeam() != _player->GetTeam())
+    // Checking faction restrictions but allow a GM to start a trade even if not in same faction
+    if (!sWorld.getConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_TRADE) && pOther->GetTeam() != _player->GetTeam() && GetSecurity() == SEC_PLAYER)
     {
         SendTradeStatus(TRADE_STATUS_WRONG_FACTION);
         return;

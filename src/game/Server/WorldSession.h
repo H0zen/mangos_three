@@ -587,10 +587,6 @@ class WorldSession
         }
         uint32 getDialogStatus(Player* pPlayer, Object* questgiver, uint32 defstatus);
 
-        // Misc
-        void SetClientTimeDelay(uint32 delay) { m_clientTimeDelay = delay; }
-        void ResetClientTimeDelay() { m_clientTimeDelay = 0; }
-
     public:                                                 // opcodes handlers
 
         // opcodes handlers
@@ -1150,7 +1146,6 @@ class WorldSession
         LocaleConstant m_sessionDbcLocale;
         int m_sessionDbLocaleIndex;
         uint32 m_latency;
-        uint32 m_clientTimeDelay;
         SessionPingTracker m_pingTracker;
         AccountData m_accountData[NUM_ACCOUNT_DATA_TYPES];
         uint32 m_Tutorials[8];

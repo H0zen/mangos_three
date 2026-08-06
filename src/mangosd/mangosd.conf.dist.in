@@ -678,10 +678,6 @@ SD3ErrorLogFile              = "scriptdev3-errors.log"
 #        The cost for guild petition charter (in copper)
 #        Default: 1000 (10 silver)
 #
-#    Guild.PetitionSignatures
-#        Required signatures count to create a guild (0..4).
-#        Default: 4
-#
 #    Guild.EventLogRecordsCount
 #        Count of guild event log records stored in guild_eventlog table
 #        Increase to store more guild events in table, minimum is 100
@@ -776,7 +772,11 @@ SD3ErrorLogFile              = "scriptdev3-errors.log"
 #                 1 (true)
 #
 #    Console.BeepAtStart
+<<<<<<< HEAD
 #        Beep once mangosd has finished starting and the console is ready.
+=======
+#        Beep at mangosd start finished (mostly work only at Unix/Linux systems)
+>>>>>>> bf2c2a0d7 (WIP: config case-insensitive matching with tests, console/shutdown work, misc fixes)
 #        Default: 1 (true)
 #                 0 (false)
 #
@@ -791,9 +791,14 @@ SD3ErrorLogFile              = "scriptdev3-errors.log"
 #        Default: "auto"  (draw the boxed, coloured loading UI when stdout is an
 #                          interactive console; plain text when it is redirected
 #                          to a file or a pipe, or when running as a service)
+<<<<<<< HEAD
 #                 "fancy" (currently behaves as "auto": forcing the UI on for a
 #                          terminal that cannot be detected as one is not yet
 #                          implemented)
+=======
+#                 "fancy" (force the loading UI on, for a terminal that cannot be
+#                          detected as one)
+>>>>>>> bf2c2a0d7 (WIP: config case-insensitive matching with tests, console/shutdown work, misc fixes)
 #                 "plain" (never; plain text, as older releases printed it)
 #
 #    WaitAtStartupError
@@ -845,7 +850,6 @@ StartPlayerLevel                          = 1
 StartHeroicPlayerLevel                    = 55
 StartPlayerMoney                          = 0
 InstantLogout                             = 1
-DisableWaterBreath                        = 4
 AllFlightPaths                            = 0
 ActivateWeather                           = 1
 CastUnstuck                               = 1
@@ -863,7 +867,6 @@ Quests.Weekly.ResetWeekDay                = 3
 Quests.Weekly.ResetHour                   = 6
 Quests.IgnoreRaid                         = 0
 Guild.PetitionCost                        = 1000
-Guild.PetitionSignatures                  = 4
 Guild.EventLogRecordsCount                = 100
 Guild.BankEventLogRecordsCount            = 25
 Guild.UndeletableLevel                    = 4
@@ -905,6 +908,7 @@ AutoBroadcast                             = 0
 #    AllowTwoSide.Interaction.Channel
 #    AllowTwoSide.Interaction.Group
 #    AllowTwoSide.Interaction.Guild
+#    AllowTwoSide.Interaction.Trade
 #    AllowTwoSide.Interaction.Auction
 #    AllowTwoSide.Interaction.Mail
 #    AllowTwoSide.Interaction.Calendar
@@ -936,6 +940,7 @@ AllowTwoSide.Interaction.Chat     = 0
 AllowTwoSide.Interaction.Channel  = 0
 AllowTwoSide.Interaction.Group    = 0
 AllowTwoSide.Interaction.Guild    = 0
+AllowTwoSide.Interaction.Trade    = 0
 AllowTwoSide.Interaction.Auction  = 0
 AllowTwoSide.Interaction.Mail     = 0
 AllowTwoSide.Interaction.Calendar = 0
@@ -1432,8 +1437,8 @@ CinematicFlyover.VisibilityDistance = 250
 #         Drop rate for currency amount
 #         Default: 1
 #
-#    Rate.Pet.XP.Kill
 #    Rate.XP.Kill
+#    Rate.XP.PetKill
 #    Rate.XP.Quest
 #    Rate.XP.Explore
 #        XP rates
@@ -1579,8 +1584,8 @@ Rate.Drop.Item.Quest              = 1
 Rate.Drop.Money                   = 1
 Rate.Drop.Currency                = 1
 Rate.Drop.Currency.Amount         = 1
-Rate.Pet.XP.Kill                  = 1
 Rate.XP.Kill                      = 1
+Rate.XP.PetKill                   = 1
 Rate.XP.Quest                     = 1
 Rate.XP.Explore                   = 1
 Rate.Rest.InGame                  = 1
@@ -1754,24 +1759,6 @@ OutdoorPvp.GHEnabled = 1
 ################################################################################
 # NETWORK CONFIG
 #
-#    Network.Threads
-#         Number of threads for network queue handling, we recommend a minimum of 3,
-#         additional threads will assist with greater numbers of players.
-#         Default: 3
-#
-#    Network.OutKBuff
-#         The size of the output kernel buffer used ( SO_SNDBUF socket option, tcp manual ).
-#         Default: -1 (Use system default setting)
-#
-#    Network.OutUBuff
-#         Userspace buffer for output. This is amount of memory reserved per each connection.
-#         Default: 65536
-#
-#    Network.TcpNoDelay:
-#         TCP Nagle algorithm setting
-#         Default: 0 (enable Nagle algorithm, less traffic, more latency)
-#                  1 (TCP_NO_DELAY, disable Nagle algorithm, more traffic but less latency)
-#
 #    Network.KickOnBadPacket
 #         Kick player on bad packet format.
 #         Default: 0 - do not kick
@@ -1779,10 +1766,6 @@ OutdoorPvp.GHEnabled = 1
 #
 ################################################################################
 
-Network.Threads         = 3
-Network.OutKBuff        = -1
-Network.OutUBuff        = 65536
-Network.TcpNodelay      = 1
 Network.KickOnBadPacket = 0
 
 ################################################################################
@@ -2023,12 +2006,6 @@ Realm.RecommendedOrNew = 0
 #       Default:     true  - (enabled)
 #                    false - (disabled)
 #
-#   Eluna.CompatibilityMode
-#       Description: Toggles Eluna between compatibility mode (single-threaded) or multistate mode.
-#                    Compatibility mode limits the core to a single map update thread.
-#       Default:     true  - (enabled)
-#                    false - (disabled)
-#
 #   Eluna.OnlyOnMaps
 #       Description: When Eluna is enabled, a state will only be created for a list of specified maps
 #                    This only works for multistate mode.
@@ -2049,7 +2026,6 @@ Realm.RecommendedOrNew = 0
 ###################################################################################################
 
 Eluna.Enabled = true
-Eluna.CompatibilityMode = false
 Eluna.OnlyOnMaps = ""
 Eluna.TraceBack = false
 Eluna.ScriptPath = "lua_scripts"

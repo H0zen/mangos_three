@@ -160,7 +160,7 @@ void World::LoadConfigSettings(bool reload)
     setConfigPos(CONFIG_FLOAT_RATE_DROP_MONEY,             "Rate.Drop.Money", 1.0f);
     setConfigPos(CONFIG_FLOAT_RATE_DROP_CURRENCY,          "Rate.Drop.Currency", 1.0f);
     setConfigPos(CONFIG_FLOAT_RATE_DROP_CURRENCY_AMOUNT,   "Rate.Drop.Currency.Amount", 1.0f);
-    setConfig(CONFIG_FLOAT_RATE_PET_XP_KILL,               "Rate.Pet.XP.Kill", 1.0f);
+    setConfig(CONFIG_FLOAT_RATE_XP_PETKILL,                "Rate.XP.PetKill", 1.0f);
     setConfig(CONFIG_FLOAT_RATE_XP_KILL,                   "Rate.XP.Kill",    1.0f);
     setConfig(CONFIG_FLOAT_RATE_XP_QUEST,                  "Rate.XP.Quest",   1.0f);
     setConfig(CONFIG_FLOAT_RATE_XP_EXPLORE,                "Rate.XP.Explore", 1.0f);
@@ -289,6 +289,7 @@ void World::LoadConfigSettings(bool reload)
     setConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_CHANNEL, "AllowTwoSide.Interaction.Channel", false);
     setConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_GROUP,   "AllowTwoSide.Interaction.Group", false);
     setConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_GUILD,   "AllowTwoSide.Interaction.Guild", false);
+    setConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_TRADE,   "AllowTwoSide.Interaction.Trade", false);
     setConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_AUCTION, "AllowTwoSide.Interaction.Auction", false);
     setConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_MAIL,    "AllowTwoSide.Interaction.Mail", false);
     setConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_CALENDAR,"AllowTwoSide.Interaction.Calendar", false);
