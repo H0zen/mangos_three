@@ -107,7 +107,10 @@ namespace proto
 
             bool IsClosed() const override { return closed(); }
 
+<<<<<<< HEAD
             /// Sockets currently open, for the mangosd console/window title.
+=======
+>>>>>>> bf2c2a0d7 (WIP: config case-insensitive matching with tests, console/shutdown work, misc fixes)
             static uint32 GetOpenConnectionCount()
             {
                 return s_openConnections.load(std::memory_order_relaxed);

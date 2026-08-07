@@ -7,6 +7,7 @@
 
 #include "terrain/Terrain.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <limits>
 #include <optional>
@@ -68,6 +69,16 @@ namespace world::terrain
             }
 
             void Clear() { m_surfaces.clear(); }
+
+            /// Drops surfaces the caller must not be answered with. WHICH those are is a
+            /// server rule, so the engine offers the cut and never makes the choice.
+            template <typename Pred>
+            void DropIf(Pred pred)
+            {
+                m_surfaces.erase(
+                    std::remove_if(m_surfaces.begin(), m_surfaces.end(), pred),
+                    m_surfaces.end());
+            }
             bool Empty() const { return m_surfaces.empty(); }
             const std::vector<Surface>& Surfaces() const { return m_surfaces; }
 
@@ -118,6 +129,44 @@ namespace world::terrain
                     return below;
                 }
                 return LowestSolidAbove(z + tolerance);
+            }
+
+            /// The liquid a point at @p z is actually in: the highest surface it can reach
+            /// without passing through a floor or a ceiling. The highest surface ANYWHERE
+            /// in the column is a different question, and answering this one with it puts
+            /// a player standing dry on the ground floor into the pool one storey up, and
+            /// a player standing on a bridge into the river running under it.
+            std::optional<Surface> LiquidAt(float z, bool includeAdt = true) const
+            {
+                std::optional<Surface> best;
+                for (const Surface& s : m_surfaces)
+                {
+                    if (s.kind != SurfaceKind::Liquid || (!includeAdt && s.fromAdt))
+                    {
+                        continue;
+                    }
+                    if ((best && s.z <= best->z) || SolidBetween(z, s.z))
+                    {
+                        continue;
+                    }
+                    best = s;
+                }
+                return best;
+            }
+
+            /// Strictly between, so a surface resting exactly on a floor -- a pool on the
+            /// slab it was built into -- is not walled off from the point standing on it.
+            bool SolidBetween(float a, float b) const
+            {
+                const float lo = std::min(a, b), hi = std::max(a, b);
+                for (const Surface& s : m_surfaces)
+                {
+                    if (s.Solid() && s.z > lo && s.z < hi)
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
 
             std::optional<Surface> HighestLiquid(bool includeAdt = true) const
